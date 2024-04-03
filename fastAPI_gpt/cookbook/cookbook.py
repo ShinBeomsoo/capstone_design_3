@@ -72,9 +72,13 @@ while user_input.strip().lower() != "exit" and user_input.strip().lower() != "by
 
     # calling chat_completion_request to call ChatGPT completion endpoint
     chat_response = chat_completion_request(messages, functions=functions)
+    print("chat_response: ", chat_response.json())
 
     # fetch response of ChatGPT and call the function
     assistant_message = chat_response.json()["choices"][0]["message"]
+    print("assistant_message: ", assistant_message)
+
+    print("="*30)
 
     if assistant_message["content"]:
         print("Assistant: ", assistant_message["content"])
@@ -85,6 +89,7 @@ while user_input.strip().lower() != "exit" and user_input.strip().lower() != "by
         arguments = assistant_message["function_call"]["arguments"]
         print("fn_name: ", fn_name, " // arguments: ", arguments)
         function = locals()[fn_name]
+        print("function: ", function)
         result = function(arguments)
         print("Response is: ", result)
 
