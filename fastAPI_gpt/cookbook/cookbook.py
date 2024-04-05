@@ -56,41 +56,41 @@ functions = [
     },
 ]
 
-user_input = input(
-    "Please enter your question here: (if you want to exit then write 'exit' or 'bye'.) "
-)
+# user_input = input(
+#     "Please enter your question here: (if you want to exit then write 'exit' or 'bye'.) "
+# )
 
-while user_input.strip().lower() != "exit" and user_input.strip().lower() != "bye":
-    # prompt
-    messages = [
-        {
-            "role": "system",
-            "content": "너는 미세먼지를 알려주는 봇이야. 사용자가 거주하는 '시'의 이름을 얻을 수 있어야해.",
-        }
-    ]
-    messages.append({"role": "user", "content": user_input})
+# while user_input.strip().lower() != "exit" and user_input.strip().lower() != "bye":
+#     # prompt
+#     messages = [
+#         {
+#             "role": "system",
+#             "content": "너는 미세먼지를 알려주는 봇이야. 사용자가 거주하는 '시'의 이름을 얻을 수 있어야해.",
+#         }
+#     ]
+#     messages.append({"role": "user", "content": user_input})
 
-    # calling chat_completion_request to call ChatGPT completion endpoint
-    chat_response = chat_completion_request(messages, functions=functions)
-    print("chat_response: ", chat_response.json())
+#     # calling chat_completion_request to call ChatGPT completion endpoint
+#     chat_response = chat_completion_request(messages, functions=functions)
+#     print("chat_response: ", chat_response.json())
 
-    # fetch response of ChatGPT and call the function
-    assistant_message = chat_response.json()["choices"][0]["message"]
-    print("assistant_message: ", assistant_message)
+#     # fetch response of ChatGPT and call the function
+#     assistant_message = chat_response.json()["choices"][0]["message"]
+#     print("assistant_message: ", assistant_message)
 
-    print("="*30)
+#     print("="*30)
 
-    if assistant_message["content"]:
-        print("Assistant: ", assistant_message["content"])
-        print(assistant_message)
-        print("Response is: ", assistant_message["content"])
-    else:
-        fn_name = assistant_message["function_call"]["name"]
-        arguments = assistant_message["function_call"]["arguments"]
-        print("fn_name: ", fn_name, " // arguments: ", arguments)
-        function = locals()[fn_name]
-        print("function: ", function)
-        result = function(arguments)
-        print("Response is: ", result)
+#     if assistant_message["content"]:
+#         print("Assistant: ", assistant_message["content"])
+#         print(assistant_message)
+#         print("Response is: ", assistant_message["content"])
+#     else:
+#         fn_name = assistant_message["function_call"]["name"]
+#         arguments = assistant_message["function_call"]["arguments"]
+#         print("fn_name: ", fn_name, " // arguments: ", arguments)
+#         function = locals()[fn_name]
+#         print("function: ", function)
+#         result = function(arguments)
+#         print("Response is: ", result)
 
-    user_input = input("Please enter your question here: ")
+#     user_input = input("Please enter your question here: ")

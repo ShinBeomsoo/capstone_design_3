@@ -20,7 +20,7 @@ functions = [
                 "properties": {
                     "location": {
                         "type": "string",
-                        "descriptoin": "사용자의 위치 정보를 입력합니다.",
+                        "descriptoin": "시도 이름(전국, 서울, 부산, 대구, 인천, 광주, 대전, 울산, 경기, 강원, 충북, 충남, 전북, 전남, 경북, 경남, 제주, 세종)",
                     }
                 },
             },
@@ -30,13 +30,13 @@ functions = [
 
 
 def get_current_dust(location):
-    data = requests.get("http://localhost:8000/dust/choongnam")
+    data = requests.get(f"http://localhost:8000/dust/choongnam?sidoname={location}")
     data = data.json()
     return data
 
 
 def main():
-    user_prompt = "충남의 미세먼지 정보를 알려주세요."
+    user_prompt = input("질문을 입력하세요: ")
 
     completion = openai.chat.completions.create(
         model=GPT_MODEL,
@@ -53,22 +53,17 @@ def main():
             },
         ],
     )
-    args = completion.choices[0].message.tool_calls[0].function.arguments
-    # print("args(string): ", args)
-    parse_args = json.loads(args)
-    # print("parse_args(dict): ", parse_args)
-    # print(completion.choices[0].message.content)
-    api_result = get_current_dust(parse_args["location"])
-    # print(api_result)
-    # print(type(api_result))
+    print(completion.choices[0].message.content)
+    # args = completion.choices[0].message.tool_calls[0].function.arguments
+    # parse_args = json.loads(args)
+    # api_result = get_current_dust(parse_args["location"])
+    # print("args: ", args)
+    # print("parse_args: ", parse_args)
+    # print("api_result: ", api_result)
 
     netural_response = openai.chat.completions.create(
         model=GPT_MODEL,
         messages=[
-            {
-                "role": "system",
-                "content": "너는 아주 도움이 되는 비서야. 유저 프롬프트를 보고 유저의 위치를 확인하고, 그에 맞는 미세먼지 정보를 제공해줘.",
-            },
             {"role": "user", "content": str(api_result)},
         ],
     )

@@ -22,7 +22,7 @@ VERSION = "1.0"
     description="서비스 상태를 확인합니다. 서비스가 정상적으로 동작하는지 확인할 때 사용합니다.",
     tags=["Health"],
 )
-async def main():
+async def health():
     return {"message": "health!"}
 
 @app.get(
