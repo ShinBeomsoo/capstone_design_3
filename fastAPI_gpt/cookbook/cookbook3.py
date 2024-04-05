@@ -56,6 +56,7 @@ def create_run(client, thread):
 
 
 def run_assistants(client, thread, run):
+    print("run id: ", run.id)
     while True:
         # print("thread_id: ", thread.id)
         # print("run_id: ", run.id)
