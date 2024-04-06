@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI, HTTPException
 import httpx
+import requests
 
 from model.airquality import AirQualityResponse
 
@@ -27,7 +28,7 @@ async def health():
 
 @app.get(
     path="/dust/choongnam",
-    response_model=AirQualityResponse,
+    # response_model=AirQualityResponse,
     summary="대한민국 충남시의 미세먼지 데이터를 제공합니다.",
     description="대한민국 충청남도의 CAI최종 실시간 측정값과 지수 정보 조회 기능을 제공하는 실시간 측정정보 조회",
     response_description="대한민국 충청남도의 대기질 정보를 제공합니다.",
@@ -39,11 +40,12 @@ async def get_dust(sidoname: str = "충남"):
         "sidoName": sidoname,
         "numOfRows": "1",  # 한 페이지 결과 수
         "pageNo": "1",  # 페이지 번호
-        "ver": VERSION,
+        # "ver": VERSION,
         "returnType": "json",
     }
+    print(sidoname)
     async with httpx.AsyncClient() as client:
-        response = await client.get(PUBLIC_DATA_API_URL, params=params)
+        response = await client.get(PUBLIC_DATA_API_URL, params=params, timeout=60)
         if response.status_code != 200:
             raise HTTPException(status_code=400, detail="API 요청에 실패했습니다.")
         data = response.json()
