@@ -107,13 +107,14 @@ def run_assistants(client, thread, run):
                     )
                 else:
                     raise ValueError(f"Unknown function: {func_name}")
-                print("Submitting ouputs back to the Assistant...")
-                # print(tool_outputs)
-                client.beta.threads.runs.submit_tool_outputs(
-                    thread_id=thread.id,
-                    run_id=run.id,
-                    tool_outputs=tool_outputs,
-                )
+            print("Submitting ouputs back to the Assistant...")
+            print("run_id: ", run.id)
+            # print(tool_outputs)
+            client.beta.threads.runs.submit_tool_outputs(
+                thread_id=thread.id,
+                run_id=run.id,
+                tool_outputs=tool_outputs,
+            )
         else:
             print("Not completed yet. Waiting...")
             time.sleep(5)
