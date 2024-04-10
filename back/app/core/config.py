@@ -1,10 +1,15 @@
 from functools import lru_cache
+import os
 from typing import Any
 from typing import Dict
 from typing import List
 
+from dotenv import load_dotenv
 
-class Settings():
+load_dotenv()
+
+
+class Settings:
     API_V1_STR: str = "/v1"
     PROJECT_NAME: str = "capstone"
     ALLOW_ORIGINS: List[str] = [
@@ -17,6 +22,11 @@ class Settings():
     ]
     ROOT_PATH = "/dev"
     ROOT_PRODUCT_PATH = "/product"
+
+    ENDPOINT = os.environ["AWS_RDS_ENDPOINT"]
+    PW = os.environ["AWS_RDS_PW"]
+    USER = os.environ["AWS_RDS_USER"]
+    DB_NAME = os.environ["AWS_RDS_DB"]
 
 
 @lru_cache()
