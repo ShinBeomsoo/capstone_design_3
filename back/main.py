@@ -6,8 +6,6 @@ from app.core.config import get_settings
 from app.api.api import api_router
 from fastapi import FastAPI
 
-from app.db.database import EngineConn
-
 
 settings = get_settings()
 app = FastAPI(
@@ -16,8 +14,6 @@ app = FastAPI(
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
     root_path=settings.ROOT_PATH,
 )
-engine = EngineConn()
-session = engine.session_maker()
 
 # app.add_event_handler("startup", create_start_app_handler(app))
 # app.add_event_handler("shutdown", create_shutdown_app_handler(app))

@@ -1,14 +1,10 @@
-import asyncio
-
-from app.repositories.restraurant_gangnam import RestaurantGangnamRepo
-
+from app.repositories.restaurant_gangnam import RestaurantGangnamRepo
+from sqlalchemy.orm import Session
 
 
 class RestaurantGangnam:
-    def __init__(self, restaurant_gangnam_repo: RestaurantGangnamRepo):
+    def __init__(self, restaurant_gangnam_repo: RestaurantGangnamRepo) -> None:
         self.restaurant_gangnam_repo = restaurant_gangnam_repo
 
-    @staticmethod
-    async def get_restaurant(self):
-        restaurant_gangnam = self.restaurant_gangnam_repo.get_restaurant_gangnam()
-        return restaurant_gangnam
+    async def get_restaurant(self, db: Session):
+        await self.restaurant_gangnam_repo.get_restaurant_gangnam(db)

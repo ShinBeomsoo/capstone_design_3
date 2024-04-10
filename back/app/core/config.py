@@ -23,7 +23,7 @@ class Settings:
     ROOT_PATH = "/dev"
     ROOT_PRODUCT_PATH = "/product"
 
-    ENDPOINT = os.environ["AWS_RDS_ENDPOINT"]
+    HOST = os.environ["AWS_RDS_ENDPOINT"]
     PW = os.environ["AWS_RDS_PW"]
     USER = os.environ["AWS_RDS_USER"]
     DB_NAME = os.environ["AWS_RDS_DB"]
