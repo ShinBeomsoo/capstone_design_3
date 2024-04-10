@@ -11,8 +11,7 @@ class RestaurantGangnamRepo:
 
     async def get_restaurant_gangnam(db: Session) -> Optional[RestaurantGangnamModel]:
         try:
-            a = db.query(RestaurantGangnamModel).filter(RestaurantGangnamModel.id == 1).first().주된음식
-            print(a)
-            return None
+            restaurant_gangnam = db.query(RestaurantGangnamModel).filter(RestaurantGangnamModel.id == 1).first()
+            return restaurant_gangnam
         except OperationalError as e:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")
