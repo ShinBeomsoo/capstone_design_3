@@ -14,6 +14,7 @@ app = FastAPI(
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
     root_path=settings.ROOT_PATH,
 )
+
 # app.add_event_handler("startup", create_start_app_handler(app))
 # app.add_event_handler("shutdown", create_shutdown_app_handler(app))
 
