@@ -8,5 +8,5 @@ class MobumService:
     def __init__(self, mobum_repo: MobumRepo) -> None:
         self.mobum_repo = mobum_repo
 
-    async def get_mobum(self, db: Session) -> MobumModel:
-        return await self.mobum_repo.get_mobum(db)
+    async def get_mobum_check(self, db: Session) -> MobumModel:
+        return await self.mobum_repo.get_mobum_check(db)

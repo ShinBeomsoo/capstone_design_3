@@ -1,7 +1,8 @@
-from sqlalchemy import Column, TEXT, INT, BIGINT, DateTime, null
+from sqlalchemy import Column, TEXT, INT, DateTime, null
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+
 
 class MobumModel(Base):
     __tablename__ = "mobum"
