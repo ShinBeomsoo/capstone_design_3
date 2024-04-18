@@ -20,3 +20,10 @@ class MeasureRepo:
             return info
         except OperationalError as e:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")
+
+    async def get_measure_info_list(db: Session) -> List[MeasureInfoModel]:
+        try:
+            info = db.query(MeasureInfoModel).all()
+            return info
+        except OperationalError as e:
+            raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")
