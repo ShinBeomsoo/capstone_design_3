@@ -1,3 +1,4 @@
+from typing import List
 from sqlalchemy.orm import Session
 
 from app.model.mobum import MobumModel
@@ -10,3 +11,6 @@ class MobumService:
 
     async def get_mobum_check(self, db: Session) -> MobumModel:
         return await self.mobum_repo.get_mobum_check(db)
+    
+    async def get_mobum_list(self, db: Session) -> List[MobumModel]:
+        return await self.mobum_repo.get_mobum_list(db)
