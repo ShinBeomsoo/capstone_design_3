@@ -15,4 +15,4 @@ class MeasureData(BaseModel):
     위반일자: datetime = datetime.now()
     위반내용: str = "위반내용"
     처분내용: str = "처분내용"
-    처분기간: int = 0
+    처분기간: float | None = 0
