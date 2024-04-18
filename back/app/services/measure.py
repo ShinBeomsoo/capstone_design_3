@@ -1,7 +1,7 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
 
-from app.model.measure import MeasureInfoModel
+from app.model.measure import MeasureDataModel, MeasureInfoModel
 from app.repositories.measure import MeasureRepo
 
 
@@ -14,3 +14,8 @@ class MeasureService:
 
     async def get_measure_info_list(self, db: Session) -> List[MeasureInfoModel]:
         return await self.measure_repo.get_measure_info_list(db)
+
+    async def get_measure_data(
+        self, issuance_num: int, db: Session
+    ) -> List[MeasureDataModel]:
+        return await self.measure_repo.get_measure_data(issuance_num, db)
