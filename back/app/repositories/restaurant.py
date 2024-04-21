@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 from fastapi import HTTPException
 from pymysql import OperationalError
 from sqlalchemy.orm import Session
@@ -12,7 +12,7 @@ class RestaurantRepo:
 
     async def get_restaurant_detail(
         restaurant_id: int, db: Session
-    ) -> Optional[RestaurantModel]:
+    ) -> RestaurantModel | None:
         try:
             restaurant = (
                 db.query(RestaurantModel)

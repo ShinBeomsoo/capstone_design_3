@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 from fastapi import HTTPException
 from pymysql import OperationalError
 from sqlalchemy.orm import Session
@@ -10,7 +10,7 @@ class MobumRepo:
     def __init__(self) -> None:
         pass
 
-    async def get_mobum_detail(mobum_id: int, db: Session) -> Optional[MobumModel]:
+    async def get_mobum_detail(mobum_id: int, db: Session) -> MobumModel | None:
         try:
             mobum = db.query(MobumModel).filter(MobumModel.id == mobum_id).first()
             return mobum
