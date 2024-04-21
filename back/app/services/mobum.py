@@ -12,5 +12,12 @@ class MobumService:
     async def get_mobum_detail(self, mobum_id: int, db: Session) -> MobumModel:
         return await self.mobum_repo.get_mobum_detail(mobum_id, db)
 
-    async def get_mobum_list(self, db: Session) -> List[MobumModel]:
-        return await self.mobum_repo.get_mobum_list(db)
+    async def get_mobum_list(
+        self,
+        name: str | None,
+        gu: str | None,
+        type: str | None,
+        best: str | None,
+        db: Session,
+    ) -> List[MobumModel]:
+        return await self.mobum_repo.get_mobum_list(name, gu, type, best, db)

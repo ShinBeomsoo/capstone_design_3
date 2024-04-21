@@ -17,9 +17,23 @@ class MobumRepo:
         except OperationalError as e:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")
 
-    async def get_mobum_list(db: Session) -> List[MobumModel]:
+    async def get_mobum_list(
+        name: str | None,
+        gu: str | None,
+        type: str | None,
+        best: str | None,
+        db: Session,
+    ) -> List[MobumModel]:
         try:
-            mobum = db.query(MobumModel).all()
+            mobum = db.query(MobumModel)
+            if name:
+                mobum = mobum.filter_by(업소명=name)
+            if gu:
+                mobum = mobum.filter(MobumModel.소재지지번.like(f"%{gu}%"))
+            if type:
+                mobum = mobum.filter_by(업태명=type)
+            if best:
+                mobum = mobum.filter_by(주된음식=best)
             return mobum
         except OperationalError as e:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")
