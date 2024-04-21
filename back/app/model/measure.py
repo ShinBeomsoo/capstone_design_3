@@ -3,19 +3,14 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-class MeasureInfoModel(Base):
-    __tablename__ = "measure_info"
 
-    id = Column(INT, primary_key=True, autoincrement=True)
-    교부번호 = Column(BIGINT, nullable=True, default=null)
-    업소명 = Column(TEXT, nullable=True, default=null)
-    소재지지번 = Column(TEXT, nullable=True, default=null)
-
-class MeasureDataModel(Base):
-    __tablename__ = "measure_data"
+class MeasureModel(Base):
+    __tablename__ = "measure"
 
     id = Column(INT, primary_key=True, autoincrement=True)
     처분일자 = Column(DateTime, nullable=True, default=null)
+    업소명 = Column(TEXT, nullable=True, default=null)
+    소재지지번 = Column(TEXT, nullable=True, default=null)
     교부번호 = Column(BIGINT, nullable=True, default=null)
     행정처분상태 = Column(TEXT, nullable=True, default=null)
     처분명 = Column(TEXT, nullable=True, default=null)
