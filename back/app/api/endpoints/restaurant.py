@@ -12,32 +12,20 @@ router = APIRouter()
 
 
 @router.get(
-    path="/check",
-    summary="모범음식점 데이터를 가져옵니다.",
-    description="모범음식점 데이터를 가져옵니다.",
-    response_description="모범 음식점 데이터를 가져옵니다.",
-    response_model=Restaurant,
-)
-async def restaurant_check(
-    service: RestaurantService = Depends(get_restaurant),
-    db: Session = Depends(get_db),
-) -> Restaurant:
-    restuarant = await service.get_restaurant_detail(1, db)
-    return restuarant
-
-
-@router.get(
     path="",
-    summary="모범음식점 데이터를 가져옵니다.",
-    description="모범음식점 데이터를 가져옵니다.",
-    response_description="모범 음식점 데이터를 가져옵니다.",
+    summary="저장된 모든 음식점 데이터를 가져옵니다.",
+    description="저장된 모든 음식점 데이터를 가져옵니다.",
+    response_description="음식점 리스트",
     response_model=List[Restaurant],
 )
-async def mobum_list(
+async def restaurant_list(
+    name: str | None = None,
+    gu: str | None = None,
+    type: str | None = None,
     service: RestaurantService = Depends(get_restaurant),
     db: Session = Depends(get_db),
 ) -> List[Restaurant]:
-    restaurant = await service.get_restaurant_list(db)
+    restaurant = await service.get_restaurant_list(name, gu, type, db)
     return restaurant
 
 
@@ -48,7 +36,7 @@ async def mobum_list(
     response_description="특정 모범 음식점 데이터를 가져옵니다.",
     response_model=RestaurantDetail,
 )
-async def mobum_detail(
+async def restaurant_detail(
     restaurant_id: int,
     service: RestaurantService = Depends(get_restaurant),
     db: Session = Depends(get_db),

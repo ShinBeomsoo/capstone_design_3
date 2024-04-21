@@ -14,5 +14,11 @@ class RestaurantService:
     ) -> RestaurantModel:
         return await self.restaurant_repo.get_restaurant_detail(restaurant_id, db)
 
-    async def get_restaurant_list(self, db: Session) -> List[RestaurantModel]:
-        return await self.restaurant_repo.get_restaurant_list(db)
+    async def get_restaurant_list(
+        self,
+        name: str | None,
+        gu: str | None,
+        type: str | None,
+        db: Session,
+    ) -> List[RestaurantModel]:
+        return await self.restaurant_repo.get_restaurant_list(name, gu, type, db)
