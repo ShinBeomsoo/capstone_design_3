@@ -1,6 +1,6 @@
-from typing import List
+from typing import Annotated, List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from app.schemas.measure import Measure
@@ -19,7 +19,7 @@ router = APIRouter()
     response_model=List[Measure],
 )  # TODO: q의 default value = None으로 수정
 async def measure_list(
-    q: str | None = "삼성웨딩홀",
+    q: Annotated[str | None, Query()] = "삼성웨딩홀",
     service: MeasureService = Depends(get_measure),
     db: Session = Depends(get_db),
 ) -> List[Measure]:

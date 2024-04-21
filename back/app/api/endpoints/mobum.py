@@ -1,6 +1,6 @@
-from typing import Any, List
+from typing import Annotated, Any, List
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 
 from app.schemas.mobum import Mobum, MobumDetail
@@ -19,10 +19,10 @@ router = APIRouter()
     response_model=List[Mobum],
 )
 async def mobum_list(
-    name: str | None = None,
-    gu: str | None = None,
-    type: str | None = None,
-    best: str | None = None,
+    name: Annotated[str | None, Query()] = None,
+    gu: Annotated[str | None, Query()] = None,
+    type: Annotated[str | None, Query()] = None,
+    best: Annotated[str | None, Query()] = None,
     service: MobumService = Depends(get_mobum),
     db: Session = Depends(get_db),
 ) -> List[Mobum]:
