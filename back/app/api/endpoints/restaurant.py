@@ -1,6 +1,6 @@
 from typing import Annotated, Any, List
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Path, Query
 from sqlalchemy.orm import Session
 
 from app.schemas.restaurant import Restaurant, RestaurantDetail
@@ -37,7 +37,7 @@ async def restaurant_list(
     response_model=RestaurantDetail,
 )
 async def restaurant_detail(
-    restaurant_id: int,
+    restaurant_id: Annotated[int, Path(gt=0)],
     service: RestaurantService = Depends(get_restaurant),
     db: Session = Depends(get_db),
 ) -> RestaurantDetail:
