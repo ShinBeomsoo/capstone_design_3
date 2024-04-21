@@ -1,4 +1,3 @@
-from typing import List
 from sqlalchemy.orm import Session
 
 from app.model.mobum import MobumModel
@@ -19,5 +18,5 @@ class MobumService:
         type: str | None,
         best: str | None,
         db: Session,
-    ) -> List[MobumModel]:
+    ) -> list[MobumModel]:
         return await self.mobum_repo.get_mobum_list(name, gu, type, best, db)

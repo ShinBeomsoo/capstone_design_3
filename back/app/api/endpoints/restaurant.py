@@ -1,4 +1,4 @@
-from typing import Annotated, Any, List
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, Path, Query
 from sqlalchemy.orm import Session
@@ -16,7 +16,7 @@ router = APIRouter()
     summary="저장된 모든 음식점 데이터를 가져옵니다.",
     description="저장된 모든 음식점 데이터를 가져옵니다.",
     response_description="음식점 리스트",
-    response_model=List[Restaurant],
+    response_model=list[Restaurant],
 )
 async def restaurant_list(
     name: Annotated[str | None, Query()] = None,
@@ -24,7 +24,7 @@ async def restaurant_list(
     type: Annotated[str | None, Query()] = None,
     service: RestaurantService = Depends(get_restaurant),
     db: Session = Depends(get_db),
-) -> List[Restaurant]:
+) -> list[Restaurant]:
     restaurant = await service.get_restaurant_list(name, gu, type, db)
     return restaurant
 

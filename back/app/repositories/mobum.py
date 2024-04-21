@@ -1,4 +1,3 @@
-from typing import List
 from fastapi import HTTPException
 from pymysql import OperationalError
 from sqlalchemy.orm import Session
@@ -23,7 +22,7 @@ class MobumRepo:
         type: str | None,
         best: str | None,
         db: Session,
-    ) -> List[MobumModel]:
+    ) -> list[MobumModel]:
         try:
             mobum = db.query(MobumModel)
             if name:

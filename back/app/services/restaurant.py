@@ -1,4 +1,3 @@
-from typing import List
 from sqlalchemy.orm import Session
 
 from app.model.restaurant import RestaurantModel
@@ -20,5 +19,5 @@ class RestaurantService:
         gu: str | None,
         type: str | None,
         db: Session,
-    ) -> List[RestaurantModel]:
+    ) -> list[RestaurantModel]:
         return await self.restaurant_repo.get_restaurant_list(name, gu, type, db)
