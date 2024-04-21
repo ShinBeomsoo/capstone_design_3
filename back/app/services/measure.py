@@ -10,5 +10,5 @@ class MeasureService:
     def __init__(self, measure_repo: MeasureRepo) -> None:
         self.measure_repo = measure_repo
 
-    async def get_measure_list(self, q: str, db: Session) -> List[MeasureModel]:
-        return await self.measure_repo.get_measure_list(q, db)
+    async def get_measure_list(self, name: str, db: Session) -> List[MeasureModel]:
+        return await self.measure_repo.get_measure_list(name, db)
