@@ -16,7 +16,7 @@ class MobumService:
         name: str | None,
         gu: str | None,
         type: str | None,
-        best: str | None,
+        best_food: str | None,
         db: Session,
     ) -> list[MobumModel]:
-        return await self.mobum_repo.get_mobum_list(name, gu, type, best, db)
+        return await self.mobum_repo.get_mobum_list(name, gu, type, best_food, db)

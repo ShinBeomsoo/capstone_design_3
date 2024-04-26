@@ -22,11 +22,11 @@ async def mobum_list(
     name: Annotated[str | None, Query()] = None,
     gu: Annotated[str | None, Query()] = None,
     type: Annotated[str | None, Query()] = None,
-    best: Annotated[str | None, Query()] = None,
+    best_food: Annotated[str | None, Query()] = None,
     service: MobumService = Depends(get_mobum),
     db: Session = Depends(get_db),
 ) -> list[Mobum]:
-    mobum = await service.get_mobum_list(name, gu, type, best, db)
+    mobum = await service.get_mobum_list(name, gu, type, best_food, db)
     return mobum
 
 

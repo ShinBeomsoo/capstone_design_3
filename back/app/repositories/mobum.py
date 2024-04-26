@@ -20,7 +20,7 @@ class MobumRepo:
         name: str | None,
         gu: str | None,
         type: str | None,
-        best: str | None,
+        best_food: str | None,
         db: Session,
     ) -> list[MobumModel]:
         try:
@@ -31,8 +31,8 @@ class MobumRepo:
                 mobum = mobum.filter(MobumModel.소재지지번.like(f"%{gu}%"))
             if type:
                 mobum = mobum.filter_by(업태명=type)
-            if best:
-                mobum = mobum.filter_by(주된음식=best)
+            if best_food:
+                mobum = mobum.filter_by(주된음식=best_food)
             return mobum
         except OperationalError as e:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")
