@@ -28,7 +28,9 @@ class RestaurantRepo:
         try:
             restaurant = db.query(RestaurantModel)
             if name:
-                restaurant = restaurant.filter_by(사업장명=name)
+                restaurant = restaurant.filter(
+                    RestaurantModel.사업장명.like(f"%{name}%")
+                )
             if gu:
                 restaurant = restaurant.filter(RestaurantModel.지번주소.like(f"%{gu}%"))
             if type:
