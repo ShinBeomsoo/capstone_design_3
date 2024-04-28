@@ -1,5 +1,5 @@
 from app.db.database import SessionLocal
-=
+
 from app.repositories.mobum import MobumRepo
 from app.services.mobum import MobumService
 from app.repositories.measure import MeasureRepo
