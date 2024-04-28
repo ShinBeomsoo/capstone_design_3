@@ -13,13 +13,19 @@ router = APIRouter()
 
 @router.get(
     path="/",
-    summary="모범음식점 데이터를 가져옵니다.",
-    description="모범음식점 데이터를 가져옵니다.",
-    response_description="모범 음식점 데이터를 가져옵니다.",
+    summary="음식점 행정 처분 내역을 가져옵니다.",
+    description="음식점 행정 처분 내역을 가져옵니다.",
+    response_description="특정 업소명 가진 음식점의 행정 처분 내역 리스트",
     response_model=list[Measure],
-)  # q = "삼성웨딩홀" | "치어스"
+)
 async def measure_list(
-    name: Annotated[str | None, Query()] = None,
+    name: Annotated[
+        str | None,
+        Query(
+            title="업소명",
+            description="일치하는 업소명을 가진 음식점의 행정 처분 내역을 가져옵니다. 예) 삼성웨딩홀, 치어스",
+        ),
+    ] = None,
     service: MeasureService = Depends(get_measure),
     db: Session = Depends(get_db),
 ) -> list[Measure]:

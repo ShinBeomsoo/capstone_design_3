@@ -15,13 +15,31 @@ router = APIRouter()
     path="",
     summary="저장된 모든 음식점 데이터를 가져옵니다.",
     description="저장된 모든 음식점 데이터를 가져옵니다.",
-    response_description="음식점 리스트",
+    response_description="음식점 리스트를 가져옵니다.",
     response_model=list[Restaurant],
 )
 async def restaurant_list(
-    name: Annotated[str | None, Query()] = None,
-    gu: Annotated[str | None, Query()] = None,
-    type: Annotated[str | None, Query()] = None,
+    name: Annotated[
+        str | None,
+        Query(
+            title="업소명",
+            description="일치하는 업소명을 가진 음식점의 데이터를 가져옵니다. 예) 이도곰탕",
+        ),
+    ] = None,
+    gu: Annotated[
+        str | None,
+        Query(
+            title="구",
+            description="일치하는 구를 가진 음식점의 데이터를 가져옵니다. 예) 강남구",
+        ),
+    ] = None,
+    type: Annotated[
+        str | None,
+        Query(
+            title="업종",
+            description="일치하는 업종을 가진 음식점의 데이터를 가져옵니다. 예) 한식",
+        ),
+    ] = None,
     service: RestaurantService = Depends(get_restaurant),
     db: Session = Depends(get_db),
 ) -> list[Restaurant]:
@@ -31,13 +49,20 @@ async def restaurant_list(
 
 @router.get(
     path="/{restaurant_id}",
-    summary="특정 모범음식점의 데이터를 가져옵니다.",
-    description="특정 모범음식점 데이터를 가져옵니다.",
-    response_description="특정 모범 음식점 데이터를 가져옵니다.",
+    summary="특정 음식점의 데이터를 가져옵니다.",
+    description="특정 음식점 데이터를 가져옵니다.",
+    response_description="특정 음식점의 세부 데이터를 가져옵니다.",
     response_model=RestaurantDetail,
 )
 async def restaurant_detail(
-    restaurant_id: Annotated[int, Path(gt=0)],
+    restaurant_id: Annotated[
+        int,
+        Path(
+            title="음식점 식별 아이디",
+            description="특정 아이디 값을 가진 음식점의 세부 정보를 가져옵니다. 예) 1",
+            gt=0,
+        ),
+    ],
     service: RestaurantService = Depends(get_restaurant),
     db: Session = Depends(get_db),
 ) -> RestaurantDetail:
