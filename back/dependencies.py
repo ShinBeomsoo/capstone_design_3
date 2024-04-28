@@ -1,4 +1,5 @@
 from app.db.database import SessionLocal
+=
 from app.repositories.mobum import MobumRepo
 from app.services.mobum import MobumService
 from app.repositories.measure import MeasureRepo
@@ -17,7 +18,6 @@ def get_mobum() -> MobumService:
 
 def get_measure() -> MeasureService:
     return MeasureService(measure_repo=MeasureRepo)
-
 
 def get_db():
     db = SessionLocal()
