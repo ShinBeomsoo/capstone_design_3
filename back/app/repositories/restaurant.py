@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import HTTPException
 from pymysql import OperationalError
 from sqlalchemy.orm import Session
@@ -28,7 +29,7 @@ class RestaurantRepo:
 
     async def get_restaurant_list(
         name: str | None, gu: str | None, restaurantType: str | None, db: Session
-    ) -> list[RestaurantModel]:
+    ) -> List[RestaurantModel]:
         try:
             restaurant = db.query(RestaurantModel)
             if name:

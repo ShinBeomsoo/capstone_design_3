@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import HTTPException
 from pymysql import OperationalError
 from sqlalchemy.orm import Session
@@ -26,7 +27,7 @@ class MobumRepo:
         restaurantType: str | None,
         best_food: str | None,
         db: Session,
-    ) -> list[MobumModel]:
+    ) -> List[MobumModel]:
         try:
             mobum = db.query(MobumModel)
             if name:

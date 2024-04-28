@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, List
 
 from fastapi import APIRouter, Depends, Query, Path
 from sqlalchemy.orm import Session
@@ -16,7 +16,7 @@ router = APIRouter()
     summary="모범음식점 데이터를 가져옵니다.",
     description="모범음식점 데이터를 가져옵니다.",
     response_description="모범 음식점 데이터를 가져옵니다.",
-    response_model=list[Mobum],
+    response_model=List[Mobum],
 )
 async def mobum_list(
     name: Annotated[
@@ -49,7 +49,7 @@ async def mobum_list(
     ] = None,
     service: MobumService = Depends(get_mobum),
     db: Session = Depends(get_db),
-) -> list[Mobum]:
+) -> List[Mobum]:
     mobum = await service.get_mobum_list(name, gu, restaurantType, best_food, db)
     return mobum
 
@@ -72,6 +72,6 @@ async def mobum_detail(
     ],
     service: MobumService = Depends(get_mobum),
     db: Session = Depends(get_db),
-) -> list[Mobum]:
+) -> List[Mobum]:
     mobum = await service.get_mobum_detail(mobum_id, db)
     return mobum

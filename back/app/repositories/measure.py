@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import HTTPException
 from pymysql import OperationalError
 from sqlalchemy.orm import Session
@@ -9,7 +10,7 @@ class MeasureRepo:
     def __init__(self) -> None:
         pass
 
-    async def get_measure_list(name: str, db: Session) -> list[MeasureModel]:
+    async def get_measure_list(name: str, db: Session) -> List[MeasureModel]:
         try:
             measure = db.query(MeasureModel).filter(MeasureModel.업소명 == name).all()
             return measure

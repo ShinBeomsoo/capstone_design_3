@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, List
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
@@ -16,7 +16,7 @@ router = APIRouter()
     summary="음식점 행정 처분 내역을 가져옵니다.",
     description="음식점 행정 처분 내역을 가져옵니다.",
     response_description="특정 업소명 가진 음식점의 행정 처분 내역 리스트",
-    response_model=list[Measure],
+    response_model=List[Measure],
 )
 async def measure_list(
     name: Annotated[
@@ -28,7 +28,7 @@ async def measure_list(
     ] = None,
     service: MeasureService = Depends(get_measure),
     db: Session = Depends(get_db),
-) -> list[Measure]:
+) -> List[Measure]:
     if name == None:
         raise HTTPException(status_code=400, detail="q is required")
     info = await service.get_measure_list(name, db)
