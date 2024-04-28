@@ -18,6 +18,10 @@ class RestaurantRepo:
                 .filter(RestaurantModel.id == restaurant_id)
                 .first()
             )
+            if restaurant is None:
+                raise HTTPException(
+                    status_code=404, detail="해당 음식점이 존재하지 않습니다."
+                )
             return restaurant
         except OperationalError as e:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")

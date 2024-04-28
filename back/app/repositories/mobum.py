@@ -12,6 +12,10 @@ class MobumRepo:
     async def get_mobum_detail(mobum_id: int, db: Session) -> MobumModel | None:
         try:
             mobum = db.query(MobumModel).filter(MobumModel.id == mobum_id).first()
+            if mobum is None:
+                raise HTTPException(
+                    status_code=404, detail="해당 모범 음식점이 존재하지 않습니다."
+                )
             return mobum
         except OperationalError as e:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")
