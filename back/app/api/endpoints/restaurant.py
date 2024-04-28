@@ -33,7 +33,7 @@ async def restaurant_list(
             description="일치하는 구를 가진 음식점의 데이터를 가져옵니다. 예) 강남구",
         ),
     ] = None,
-    type: Annotated[
+    restaurantType: Annotated[
         str | None,
         Query(
             title="업종",
@@ -43,7 +43,7 @@ async def restaurant_list(
     service: RestaurantService = Depends(get_restaurant),
     db: Session = Depends(get_db),
 ) -> list[Restaurant]:
-    restaurant = await service.get_restaurant_list(name, gu, type, db)
+    restaurant = await service.get_restaurant_list(name, gu, restaurantType, db)
     return restaurant
 
 

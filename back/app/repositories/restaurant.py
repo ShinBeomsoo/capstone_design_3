@@ -23,7 +23,7 @@ class RestaurantRepo:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")
 
     async def get_restaurant_list(
-        name: str | None, gu: str | None, type: str | None, db: Session
+        name: str | None, gu: str | None, restaurantType: str | None, db: Session
     ) -> list[RestaurantModel]:
         try:
             restaurant = db.query(RestaurantModel)
@@ -31,8 +31,8 @@ class RestaurantRepo:
                 restaurant = restaurant.filter_by(사업장명=name)
             if gu:
                 restaurant = restaurant.filter(RestaurantModel.지번주소.like(f"%{gu}%"))
-            if type:
-                restaurant = restaurant.filter_by(업태구분명=type)
+            if restaurantType:
+                restaurant = restaurant.filter_by(업태구분명=restaurantType)
             return restaurant.all()
         except OperationalError as e:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")

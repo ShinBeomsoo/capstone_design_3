@@ -33,7 +33,7 @@ async def mobum_list(
             description="일치하는 구를 가진 음식점의 데이터를 가져옵니다. 예) 강남구",
         ),
     ] = None,
-    type: Annotated[
+    restaurantType: Annotated[
         str | None,
         Query(
             title="업종",
@@ -50,7 +50,7 @@ async def mobum_list(
     service: MobumService = Depends(get_mobum),
     db: Session = Depends(get_db),
 ) -> list[Mobum]:
-    mobum = await service.get_mobum_list(name, gu, type, best_food, db)
+    mobum = await service.get_mobum_list(name, gu, restaurantType, best_food, db)
     return mobum
 
 

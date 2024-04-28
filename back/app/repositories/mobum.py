@@ -19,7 +19,7 @@ class MobumRepo:
     async def get_mobum_list(
         name: str | None,
         gu: str | None,
-        type: str | None,
+        restaurantType: str | None,
         best_food: str | None,
         db: Session,
     ) -> list[MobumModel]:
@@ -29,8 +29,8 @@ class MobumRepo:
                 mobum = mobum.filter_by(업소명=name)
             if gu:
                 mobum = mobum.filter(MobumModel.소재지지번.like(f"%{gu}%"))
-            if type:
-                mobum = mobum.filter_by(업태명=type)
+            if restaurantType:
+                mobum = mobum.filter_by(업태명=restaurantType)
             if best_food:
                 mobum = mobum.filter_by(주된음식=best_food)
             return mobum
