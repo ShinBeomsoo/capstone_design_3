@@ -2,6 +2,7 @@ from functools import lru_cache
 import os
 
 from dotenv import load_dotenv
+from openai import OpenAI
 
 
 load_dotenv()
@@ -25,6 +26,9 @@ class Settings:
     PW = os.environ["AWS_RDS_PW"]
     USER = os.environ["AWS_RDS_USER"]
     DB_NAME = os.environ["AWS_RDS_DB"]
+    GPT_API_KEY = os.environ["OPENAI_API_KEY_CTT"]
+    GPT_CLIENT = OpenAI(api_key=GPT_API_KEY)
+
 
 
 @lru_cache()
