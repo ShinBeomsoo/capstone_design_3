@@ -1,12 +1,9 @@
-// Chat.js
-
 import React, { useState, useRef, useEffect } from 'react';
 import './styles.css'; 
 
 function Chat() {
   const [messages, setMessages] = useState([]);
   const messageRef = useRef(null);
-
 
   useEffect(() => {
     if (messageRef.current) {
@@ -18,17 +15,20 @@ function Chat() {
     e.preventDefault();
     const newMessage = e.target.elements.message.value;
     if (newMessage.trim() !== '') {
-      setMessages([...messages, newMessage]);
+      setMessages([...messages, { content: newMessage, user: 'user' }]);
       e.target.elements.message.value = '';
     }
   };
 
   return (
-    <div className="chat" style={{ position: 'fixed', top: '220px', left: '120px', width: '600px', height: '500px', border: '1px solid #ccc', borderRadius: '5px', overflow: 'auto' }}>
+    <div className="chat" style={{ position: 'fixed', top: '160px', left: '120px', width: '700px', height: '550px', border: '1px solid #ccc', borderRadius: '5px', overflow: 'auto' }}>
       {/* 채팅 대화 내역 */}
-      <div ref={messageRef} style={{ padding: '10px', paddingBottom: '0', overflowY: 'auto', height: 'calc(100% - 40px)' }}>
+      <div ref={messageRef} style={{ padding: '10px', paddingBottom: '0', overflowY: 'auto', height: '80%' }}>
         {messages.map((message, index) => (
-          <div key={index}>{message}</div>
+          <div key={index} className={message.user === 'user' ? 'message user-message' : 'message'}>
+            {message.user === 'user' && <div className="user-icon">🍩</div>}
+            <div className="message-bubble">{message.content}</div>
+          </div>
         ))}
       </div>
       {/* 사용자 입력창 */}

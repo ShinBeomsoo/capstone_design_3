@@ -1,14 +1,18 @@
 body {
   height: 100vh; 
-  background-image: url('./back2.png'); 
-  background-size: cover; 
-  background-position: center; 
+
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-image: url('./배경5.png'); /* 배경 이미지 설정 */
+  background-size: cover; /* 배경 이미지를 창에 맞게 조정합니다. */
+  background-position: center; /* 배경 이미지를 가운데 정렬합니다. */
+  height: 100vh; /* 뷰포트의 높이에 맞게 설정합니다. */
+
 }
 
 code {

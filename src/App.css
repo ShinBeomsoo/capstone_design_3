@@ -2,7 +2,6 @@
 
 .App {
 
-
   display: flex;
   flex-direction: row;
 }
@@ -34,10 +33,16 @@
 }
 
 .chat {
-  border: 1px solid #ccc;
-  border-radius: 10px; 
-  padding: 20px;
-  background-color: #ffebe3; 
+  position: fixed;
+  top: 220px;
+  left: 120px;
+  width: 600px;
+  height: 500px;
+  border: 0.5px solid #ccc;
+  border-radius: 5px;
+  overflow: auto;
+  background: linear-gradient(135deg, rgba(255, 221, 201, 0.74), rgba(255, 233, 203, 0.979)); /* 연한 노란색 그라데이션 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* 그림자 효과 강화 */
 }
 
 .chat-message {
@@ -56,7 +61,7 @@ input[type="text"] {
 
 button {
   padding: 10px 20px; 
-  background-color: #359679;
+  background-color: #2e7d60; /* 변경된 기본 색상 */
   color: #fff;
   border: none;
   border-radius: 5px; 
@@ -70,20 +75,31 @@ button:hover {
 
 .map img {
   max-width: 100%; 
-
-
-
-@keyframes twinkling {
-  0% { background-position: 0 0; }
-  100% { background-position: 100% 100%; }
 }
 
-.star-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('https://www.transparenttextures.com/patterns/stars.png'); /* 별빛 패턴 이미지 */
-  animation: twinkling 20s infinite linear;
+
+.mainlogo {
+  opacity: 0;
+}
+
+.fade-in-slide {
+  animation: fade-in-slide-animation 1s ease forwards;
+}
+
+@keyframes fade-in-slide-animation {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.robot-container {
+  position: absolute;
+  bottom: 50px; /* 원하는 위치로 조정하세요 */
+  left: 55%;
+  transform: translateX(-50%);
 }
