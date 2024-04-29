@@ -10,9 +10,11 @@ client = OpenAI(api_key=API_KEY)
 GPT_MODEL = "gpt-3.5-turbo"
 
 
-def get_current_dust(location):
-    # data = requests.get(f"http://localhost:8000/dust/choongnam?sidoname={location}")
-    return None  # data.json()
+def get_mobum_data(restaurant_name: str = "", gu: str = ""):
+    print("get mobum data")
+    data = requests.get(f"http://localhost:8000/v1/mobums?name={restaurant_name}&gu={gu}")
+    print(data)
+    return data.json() # data.json()
 
 
 # 2. thread 생성
@@ -43,7 +45,7 @@ def create_run(client, thread):
 # 5. assistant 실행 객체의 상태를 확인하고, 완료되면 결과를 출력한다.
 def run_assistants(client, thread, run):
     while True:
-        time.sleep(4)
+        time.sleep(2)
         run_status = client.beta.threads.runs.retrieve(
             thread_id=thread,
             run_id=run.id,
@@ -66,8 +68,8 @@ def run_assistants(client, thread, run):
             for action in required_actions["tool_calls"]:
                 func_name = action["function"]["name"]
                 arguments = json.loads(action["function"]["arguments"])
-                if func_name == "get_current_dust":
-                    output = get_current_dust(arguments["location"])
+                if func_name == "get_mobum_data":
+                    output = get_mobum_data(arguments.get("restaurant_name", ""), arguments.get("gu", ""))
                     tool_outputs.append(
                         {
                             "tool_call_id": action["id"],

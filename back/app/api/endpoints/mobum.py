@@ -73,5 +73,6 @@ async def mobum_detail(
     service: MobumService = Depends(get_mobum),
     db: Session = Depends(get_db),
 ) -> List[Mobum]:
+    print("hello")
     mobum = await service.get_mobum_detail(mobum_id, db)
     return mobum
