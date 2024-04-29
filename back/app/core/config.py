@@ -1,10 +1,8 @@
 from functools import lru_cache
 import os
-from typing import Any
-from typing import Dict
-from typing import List
 
 from dotenv import load_dotenv
+
 
 load_dotenv()
 
@@ -12,7 +10,7 @@ load_dotenv()
 class Settings:
     API_V1_STR: str = "/v1"
     PROJECT_NAME: str = "capstone"
-    ALLOW_ORIGINS: List[str] = [
+    ALLOW_ORIGINS: list[str] = [
         "*",  # TODO 나중에 쓰는 서버 ip로 바꿀 것
         # 'http://127.0.0.1:3000',
         # 'http://localhost',
