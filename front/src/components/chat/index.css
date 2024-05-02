@@ -1,0 +1,28 @@
+.chat-container {
+  width: 600px;
+  height: 88%;
+  overflow: auto;
+}
+
+
+.chat-list {
+  width: auto;
+  height: 550px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: auto;
+}
+
+.message {
+  display: flex;
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+.chat-input {
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ccc;
+  color: #333;
+}

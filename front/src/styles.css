@@ -1,0 +1,17 @@
+@keyframes glow {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+.message {
+  display: flex;
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+.user-icon {
+  margin-right: 8px; /* 아이콘과 말풍선 사이의 간격 조정 */
+}
