@@ -33,7 +33,7 @@ function Chat() {
       </div>
       {/* 사용자 입력창 */}
       <form onSubmit={handleMessageSubmit} style={{ borderTop: '1px solid #ccc', padding: '10px', display: 'flex' }}>
-        <input type="text" name="message" placeholder="Type a message..." style={{ flex: '1', marginRight: '10px' }} />
+        <input type="text" name="message" placeholder="Type a message" style={{ flex: '1', marginRight: '10px' }} />
         {/* 전송 버튼 */}
         <button type="submit" className="gradient_btn">전송</button>
       </form>

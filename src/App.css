@@ -1,80 +1,12 @@
-/* App.css */
-
-.App {
-
-  display: flex;
-  flex-direction: row;
+.app {
+  display: block;
+  
 }
 
-
-
-.mainlogo {
-  width: 50px; 
-  padding: 20px;
-}
-
-.chat-container {
-  flex: 1; 
-  padding: 20px; 
-  position: fixed; 
-  top: 20px; 
-  left: 20px; 
-  padding: 20px;
-  z-index: 999; 
-}
-
-.map-container {
-  flex: 1;
-  float: right;
-  width: 600px; 
-  padding: 20px;
-  margin-top: -50px; 
-  margin-right: 40px; 
-}
-
-.chat {
-  position: fixed;
-  top: 220px;
-  left: 120px;
-  width: 600px;
-  height: 500px;
-  border: 0.5px solid #ccc;
-  border-radius: 5px;
-  overflow: auto;
-  background: linear-gradient(135deg, rgba(255, 221, 201, 0.74), rgba(255, 233, 203, 0.979)); /* 연한 노란색 그라데이션 */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* 그림자 효과 강화 */
-}
-
-.chat-message {
-  margin-bottom: 10px;
-  padding: 10px; 
-  border-radius: 5px;
-  background-color: #ffe2a3; 
-}
-
-input[type="text"] {
-  width: calc(100% - 80px); 
-  padding: 10px; 
-  border: 1px solid #ccc; 
-  border-radius: 5px; 
-}
-
-button {
-  padding: 10px 20px; 
-  background-color: #2e7d60; /* 변경된 기본 색상 */
-  color: #fff;
-  border: none;
-  border-radius: 5px; 
-  cursor: pointer;
-  transition: background-color 0.3s ease; 
-}
-
-button:hover {
-  background-color: #0a5242; 
-}
-
-.map img {
-  max-width: 100%; 
+.logo {
+  width: 150px;
+  height: auto;
+  margin: 20px;
 }
 
 
@@ -102,4 +34,5 @@ button:hover {
   bottom: 50px; /* 원하는 위치로 조정하세요 */
   left: 55%;
   transform: translateX(-50%);
+  
 }
