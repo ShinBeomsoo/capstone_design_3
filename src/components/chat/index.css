@@ -84,12 +84,12 @@ input[type="text"] {
   transition: transform 0.4s ease-in-out;
 }
 
-/* 애니메이션 설정 */
+
 .chat-input.slide-down {
   transform: translateY(300%);
 }
 
-/* 미디어 쿼리를 사용하여 반응형 스타일 적용 */
+
 @media screen and (max-width: 800px) {
   .chat-container {
     width: 90%;
