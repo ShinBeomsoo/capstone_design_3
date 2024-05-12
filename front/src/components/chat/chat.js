@@ -11,12 +11,38 @@ function Chat() {
     }
   }, [messages]);
 
-  const handleMessageSubmit = (e) => {
+  const handleMessageSubmit = async (e) => {
     e.preventDefault();
     const newMessage = e.target.elements.message.value;
     if (newMessage.trim() !== '') {
-      setMessages([...messages, { content: newMessage, user: 'user' }]);
+      const messageData = { content: newMessage, user: 'user' };
+      setMessages([...messages, messageData]);
+
       e.target.elements.message.value = '';
+
+      let threadId = localStorage.getItem('thread_id');
+
+      const params = new URLSearchParams({
+        thread_id: threadId || '',
+        user_input: newMessage,
+      });
+
+      try {
+        const response = await fetch(`http://localhost:8000/v1/gpt?${params}`, {
+          method: 'GET',
+        });
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        const responseData = await response.json();
+        const botMessage = {content: responseData.result, user: 'bot'}
+        setMessages(messages => [...messages, botMessage]);
+
+        if (responseData.thread_id && !threadId) {
+          localStorage.setItem('thread_id', responseData.thread_id);
+        }
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
     }
   };
 
