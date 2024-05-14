@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Typewriter from 'typewriter-effect';
 import './index.css';
 
 function Chat() {
@@ -27,12 +28,12 @@ function Chat() {
 
         let responseMessage;
         if (newMessage.includes('음식점')) {
-          responseMessage = { content: '음식점을 찾으시나요?', user: 'bot' };
+          responseMessage = '음식점을 찾으시나요?';
         } else {
-          responseMessage = { content: '죄송합니다. 이해하지 못했어요.', user: 'bot' };
+          responseMessage = '죄송합니다. 이해하지 못했어요.';
         }
         
-        setMessages(prevMessages => [...prevMessages, responseMessage]);
+        setMessages(prevMessages => [...prevMessages, { content: responseMessage, user: 'bot' }]);
         
         e.target.elements.message.value = '';
         setShowPrompt(false);
@@ -49,15 +50,25 @@ function Chat() {
         </div>
       )}
       {showChatList && (
-        <div className="chat-list">
-          <div ref={messageRef}>
-            {messages.map((message, index) => (
-              <div key={index} className={message.user === 'user' ? 'message user-message' : 'message'}>
-                {message.user === 'user' && <div className="user-icon">🍩</div>}
-                <div className="message-bubble">{message.content}</div>
+        <div className="chat-list" ref={messageRef}>
+          {messages.map((message, index) => (
+            <div key={index} className={message.user === 'user' ? 'message user-message' : 'message'}>
+              {message.user === 'user' && <div className="user-icon">🍩</div>}
+              <div className="message-bubble">
+                {message.user === 'bot' ? (
+                  <Typewriter
+                    options={{
+                      strings: message.content,
+                      autoStart: true,
+                      delay: 50,
+                    }}
+                  />
+                ) : (
+                  message.content
+                )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       )}
       <form onSubmit={handleMessageSubmit} className={`chat-input ${slideDown ? 'slide-down' : ''}`}>
