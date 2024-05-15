@@ -43,6 +43,7 @@ async def restaurant_list(
     service: RestaurantService = Depends(get_restaurant),
     db: Session = Depends(get_db),
 ) -> List[Restaurant]:
+    print("restaurant_list")
     restaurant = await service.get_restaurant_list(name, gu, restaurantType, db)
     return restaurant
 

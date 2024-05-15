@@ -2,25 +2,13 @@ import os
 import time
 from openai import OpenAI
 import json
-import requests
+
+from app.gpt.utility import get_mobum_data, get_restaurant_data
 
 
 API_KEY = os.environ["OPENAI_API_KEY_CTT"]
 client = OpenAI(api_key=API_KEY)
 GPT_MODEL = "gpt-3.5-turbo"
-
-
-def get_mobum_data(restaurant_name: str = "", gu: str = ""):
-    print(restaurant_name, gu)
-    print("get mobum data")
-    try:
-        data = requests.get(f"http://localhost:8000/v1/mobums?name={restaurant_name}&gu={gu}", timeout=30)
-        return data.json()
-    except requests.exceptions.Timeout as e:
-        print("Request Time out")
-    except requests.exceptions.RequestException as e:
-        print("request error")
-    return None # data.json()
 
 
 # 2. thread 생성
@@ -65,9 +53,9 @@ def run_assistants(client, thread, run):
         if count == 10:
             client.beta.threads.runs.cancel(thread_id=thread, run_id=run.id)
             return "결과값이 나오지 않았습니다. 다시 시도해보세요!"
+        print(run_status.status)
         # run 객체의 상태가 완료되었을 때
         if run_status.status == "completed":
-            print(run_status.status)
             messages = client.beta.threads.messages.list(
                 thread_id=thread,
             )
@@ -75,25 +63,14 @@ def run_assistants(client, thread, run):
             return messages.data[0].content[0].text.value
         # run 객체의 상태가 requires_action일 때
         elif run_status.status == "requires_action":
-            print(run_status.status)
             required_actions = (
                 run_status.required_action.submit_tool_outputs.model_dump()
             )
 
             tool_outputs = []
             for action in required_actions["tool_calls"]:
-                func_name = action["function"]["name"]
-                arguments = json.loads(action["function"]["arguments"])
-                if func_name == "get_mobum_data":
-                    output = get_mobum_data(arguments.get("restaurant_name", ""), arguments.get("gu", ""))
-                    tool_outputs.append(
-                        {
-                            "tool_call_id": action["id"],
-                            "output": str(output),
-                        }
-                    )
-                else:
-                    raise ValueError(f"Unknown function: {func_name}")
+                process_action(action, tool_outputs)
+
             client.beta.threads.runs.submit_tool_outputs(
                 thread_id=thread,
                 run_id=run.id,
@@ -103,3 +80,26 @@ def run_assistants(client, thread, run):
         # run 객체의 상태가 completed가 아닐 때
         else:
             time.sleep(4)
+
+def process_action(action, tool_outputs):
+    func_name = action["function"]["name"]
+    print(func_name)
+    arguments = json.loads(action["function"]["arguments"])
+    if func_name == "get_mobum_data":
+        output = get_mobum_data(arguments.get("restaurant_name", ""), arguments.get("gu", ""))
+        tool_outputs.append(
+            {
+                "tool_call_id": action["id"],
+                "output": str(output),
+            }
+        )
+    elif func_name == "get_restaurant_data":
+        output = get_restaurant_data(arguments.get("name", ""), arguments.get("gu", ""), arguments.get("restaurantType", ""))
+        tool_outputs.append(
+            {
+                "tool_call_id": action["id"],
+                "output": str(output),
+            }
+        )
+    else:
+        raise ValueError(f"Unknown function: {func_name}")

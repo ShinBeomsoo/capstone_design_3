@@ -50,6 +50,7 @@ async def mobum_list(
     service: MobumService = Depends(get_mobum),
     db: Session = Depends(get_db),
 ) -> List[Mobum]:
+    print("mobum_list")
     mobum = await service.get_mobum_list(name, gu, restaurantType, best_food, db)
     return mobum
 
