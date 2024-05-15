@@ -3,6 +3,7 @@ import './index.css';
 
 function Chat() {
   const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const messageRef = useRef(null);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ function Chat() {
     e.preventDefault();
     const newMessage = e.target.elements.message.value;
     if (newMessage.trim() !== '') {
+      setIsLoading(true);
       const messageData = { content: newMessage, user: 'user' };
       setMessages([...messages, messageData]);
 
@@ -34,7 +36,7 @@ function Chat() {
         if (!response.ok) throw new Error('Network response was not ok');
 
         const responseData = await response.json();
-        const botMessage = {content: responseData.result, user: 'bot'}
+        const botMessage = { content: responseData.result, user: 'bot' }
         setMessages(messages => [...messages, botMessage]);
 
         if (responseData.thread_id && !threadId) {
@@ -42,6 +44,8 @@ function Chat() {
         }
       } catch (error) {
         console.error('Error fetching data: ', error);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -58,11 +62,12 @@ function Chat() {
           ))}
         </div>
       </div>
-      {/* 사용자 입력창 */}
-      <form onSubmit={handleMessageSubmit} className="chat-input">
-        <input type="text" name="message" placeholder="Type a message..." />
-        <button type="submit">전송</button>
-      </form>
+      {isLoading ? <div className="spinner"></div> :
+        <form onSubmit={handleMessageSubmit} className="chat-input">
+          <input type="text" name="message" placeholder="Type a message..." disabled={isLoading} className={isLoading ? 'disabled-iput' : ''} />
+          <button type="submit" disabled={isLoading}>전송</button>
+        </form>
+      }
     </div>
   );
 }
