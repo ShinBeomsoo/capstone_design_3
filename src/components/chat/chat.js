@@ -5,7 +5,7 @@ import './index.css';
 function Chat() {
   const [messages, setMessages] = useState([]);
   const [showPrompt, setShowPrompt] = useState(true);
-  const [showChatList, setShowChatList] = useState(false); // 오타 수정
+  const [showChatList, setShowChatList] = useState(false);
   const [slideDown, setSlideDown] = useState(false);
   const messageRef = useRef(null);
   const inputRef = useRef(null);
@@ -20,7 +20,7 @@ function Chat() {
     e.preventDefault();
     const newMessage = e.target.elements.message.value.trim();
     if (newMessage !== '') {
-      setSlideDown(true);
+      setSlideDown(true); // 입력창이 아래로 슬라이딩되도록 설정
 
       setTimeout(() => {
         const userMessage = { content: newMessage, user: 'user' };
@@ -32,9 +32,9 @@ function Chat() {
         } else {
           responseMessage = '죄송합니다. 이해하지 못했어요.';
         }
-
+        
         setMessages(prevMessages => [...prevMessages, { content: responseMessage, user: 'bot' }]);
-
+        
         e.target.elements.message.value = '';
         setShowPrompt(false);
         setShowChatList(true);
@@ -58,7 +58,7 @@ function Chat() {
                 {message.user === 'bot' ? (
                   <Typewriter
                     options={{
-                      strings: [message.content], // 문자열을 배열로 감싸줌
+                      strings: message.content,
                       autoStart: true,
                       delay: 50,
                     }}
