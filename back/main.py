@@ -1,3 +1,4 @@
+import sys
 from typing import Any
 
 import uvicorn
@@ -30,4 +31,12 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8001)
+    if len(sys.argv) != 2:
+        port = 8000
+    else:
+        port = int(sys.argv[1])
+    uvicorn.run(
+        app=app,
+        host="127.0.0.1",
+        port=port,
+        )
