@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Typewriter from 'typewriter-effect';
+import MDEditor from '@uiw/react-md-editor';
 import './index.css';
 
 function Chat() {
@@ -69,7 +70,7 @@ function Chat() {
           {messages.map((message, index) => (
             <div key={index} className={message.user === 'user' ? 'message user-message' : 'message'}>
               {message.user === 'user' && <div className="user-icon">🍩</div>}
-              <div className="message-bubble">
+              <MDEditor.Markdown className="message-bubble" source={message.content}>
                 {message.user === 'bot' ? (
                   <Typewriter
                     options={{
@@ -81,7 +82,7 @@ function Chat() {
                 ) : (
                   message.content
                 )}
-              </div>
+              </MDEditor.Markdown>
             </div>
           ))}
         </div>
