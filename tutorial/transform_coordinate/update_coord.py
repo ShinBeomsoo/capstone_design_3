@@ -36,10 +36,10 @@ try:
         if x == None or y == None:
             continue
         update_x, update_y = transformer.transform(x, y)
-        print(update_x, update_y)
-        cursor.execute(f"UPDATE restaurant SET 좌표정보_X = {x}, 좌표정보_Y = {y} WHERE id = {id}")
-    
-    raise
+        print(id, update_x, update_y)
+        cursor.execute(f"UPDATE restaurant SET 좌표정보_X = {update_x}, 좌표정보_Y = {update_y} WHERE id = {id}")
+
+    # raise
     # 변경사항 저장
     connection.commit()
 
