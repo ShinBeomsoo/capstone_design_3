@@ -42,4 +42,5 @@ class RestaurantRepo:
                 restaurant = restaurant.filter_by(업태구분명=restaurantType)
             return restaurant.all()
         except OperationalError as e:
+            print("error", e)
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")

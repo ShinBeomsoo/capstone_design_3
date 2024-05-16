@@ -39,5 +39,6 @@ async def gpt(
     run = create_run(client, thread_id)
     result = run_assistants(client, thread_id, run)
     return {
+        "thread_id": thread_id,
         "result": result,
     }
