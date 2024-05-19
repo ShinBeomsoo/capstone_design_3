@@ -28,6 +28,7 @@
 
 .message {
   margin-bottom: 10px;
+  white-space: pre-wrap;
 }
 
 .user-icon {

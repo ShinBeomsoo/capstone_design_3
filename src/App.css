@@ -1,14 +1,40 @@
 .app {
   display: block;
-  
 }
 
 .logo {
-  width: 150px;
+  width: 100px;
   height: auto;
   margin: 20px;
 }
 
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+input[type="text"] {
+  width: calc(100% - 80px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #2e7d60; /* 변경된 기본 색상 */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0a5242;
+}
 
 .mainlogo {
   opacity: 0;
@@ -34,5 +60,4 @@
   bottom: 50px; /* 원하는 위치로 조정하세요 */
   left: 55%;
   transform: translateX(-50%);
-  
 }

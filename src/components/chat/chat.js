@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Typewriter from 'typewriter-effect';
+import MDEditor from '@uiw/react-md-editor';
 import './index.css';
 
 function Chat() {
@@ -16,29 +17,44 @@ function Chat() {
     }
   }, [messages]);
 
-  const handleMessageSubmit = (e) => {
+  const handleMessageSubmit = async (e) => {
     e.preventDefault();
-    const newMessage = e.target.elements.message.value.trim();
-    if (newMessage !== '') {
-      setSlideDown(true); // 입력창이 아래로 슬라이딩되도록 설정
+    const newMessage = e.target.elements.message.value;
+    if (newMessage.trim() !== '') {
+      setSlideDown(true);
+      let threadId = localStorage.getItem('thread_id');
+      const params = new URLSearchParams({
+        thread_id: threadId || '',
+        user_input: newMessage,
+      });
 
-      setTimeout(() => {
+      setTimeout(async () => {
         const userMessage = { content: newMessage, user: 'user' };
         setMessages(prevMessages => [...prevMessages, userMessage]);
 
-        let responseMessage;
-        if (newMessage.includes('음식점')) {
-          responseMessage = '음식점을 찾으시나요?';
-        } else {
-          responseMessage = '죄송합니다. 이해하지 못했어요.';
+        try {
+          const response = await fetch(`http://localhost:8000/v1/gpt?${params}`, {
+            method: 'GET',
+          });
+          if (!response.ok) throw new Error('Network response was not ok');
+
+          const responseData = await response.json();
+          const botMessage = { content: responseData.result, user: 'bot' }
+          setMessages(messages => [...messages, botMessage]);
+
+          if (responseData.thread_id && !threadId) {
+            localStorage.setItem('thread_id', responseData.thread_id);
+          }
+        } catch (error) {
+          console.error('Error fetching data: ', error);
+        } finally {
+          console.log("finally ")
+          //   // setIsLoading(false);
         }
-        
-        setMessages(prevMessages => [...prevMessages, { content: responseMessage, user: 'bot' }]);
-        
         e.target.elements.message.value = '';
         setShowPrompt(false);
         setShowChatList(true);
-      }, 200); // 0.2초 지연 후 메시지 처리
+      })
     }
   };
 
@@ -54,7 +70,7 @@ function Chat() {
           {messages.map((message, index) => (
             <div key={index} className={message.user === 'user' ? 'message user-message' : 'message'}>
               {message.user === 'user' && <div className="user-icon">🍩</div>}
-              <div className="message-bubble">
+              <MDEditor.Markdown className="message-bubble" source={message.content}>
                 {message.user === 'bot' ? (
                   <Typewriter
                     options={{
@@ -66,7 +82,7 @@ function Chat() {
                 ) : (
                   message.content
                 )}
-              </div>
+              </MDEditor.Markdown>
             </div>
           ))}
         </div>
