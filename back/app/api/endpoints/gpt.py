@@ -1,6 +1,7 @@
+import types
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, HTTPException, Query
 
 from app.core.config import get_settings
 from app.gpt.step import add_message, create_run, create_thread, run_assistants
@@ -24,20 +25,23 @@ async def gpt(
         ),
     ] = None,
     user_input: Annotated[
-        str | None,
+        str,
         Query(
             title="user_input",
             description="유저가 assistant에게 입력한 문장",
         ),
-    ] = None,
+    ] = ...,
 ) -> Any:
+    if isinstance(user_input, types.EllipsisType) or user_input == "":
+        raise HTTPException(status_code=400, detail="user_input is required.")
     client = get_settings().GPT_CLIENT
     if thread_id == None or thread_id == "":
-        print("thread_id is None")    
+        print("thread_id is None")
         thread_id = create_thread(client)
     add_message(client, thread_id, user_input)
     run = create_run(client, thread_id)
     result = run_assistants(client, thread_id, run)
     return {
+        "thread_id": thread_id,
         "result": result,
     }

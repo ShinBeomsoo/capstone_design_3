@@ -15,9 +15,6 @@ class Settings:
         "*",  # TODO 나중에 쓰는 서버 ip로 바꿀 것
         # 'http://127.0.0.1:3000',
         # 'http://localhost',
-        # 'https://spoon8.com/',
-        # 'https://spoon8.com/*',
-        # 'https://www.spoon8.com',
     ]
     ROOT_PATH = "/dev"
     ROOT_PRODUCT_PATH = "/product"
