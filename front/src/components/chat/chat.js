@@ -33,7 +33,7 @@ function Chat() {
         setMessages(prevMessages => [...prevMessages, userMessage]);
 
         try {
-          const response = await fetch(`http://localhost:8000/v1/gpt?${params}`, {
+          const response = await fetch(`http://43.201.64.112/v1/gpt?${params}`, {
             method: 'GET',
           });
           if (!response.ok) throw new Error('Network response was not ok');
