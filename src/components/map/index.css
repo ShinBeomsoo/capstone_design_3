@@ -3,3 +3,10 @@
   height: 600px;
   border-radius: 5px;
 }
+
+/* 모바일 스타일 */
+@media screen and (max-width: 800px) {
+  .map-container {
+    display: none; /* 모바일에서 Kakao를 숨김 */
+  }
+}

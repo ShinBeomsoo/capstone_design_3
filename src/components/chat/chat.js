@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Typewriter from 'typewriter-effect';
 import MDEditor from '@uiw/react-md-editor';
-import './index.css';
+import './index.css';  // Ensure the correct path
 
 function Chat() {
   const [messages, setMessages] = useState([]);

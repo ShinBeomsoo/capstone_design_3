@@ -13,7 +13,7 @@ function Kakao() {
   }, []);
 
   return (
-    <div className="map-container">
+    <div className="map-container kakao">
       <div id="map" style={{ width: '600px', height: '600px' }}></div>
     </div>
   );

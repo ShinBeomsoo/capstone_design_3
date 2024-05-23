@@ -1,63 +1,42 @@
+/* App.css */
+
 .app {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .logo {
-  width: 100px;
-  height: auto;
-  margin: 20px;
+  width: 150px;
+  margin-bottom: 20px;
 }
 
 .container {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
 }
 
-
-input[type="text"] {
-  width: calc(100% - 80px);
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #2e7d60; /* 변경된 기본 색상 */
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #0a5242;
-}
-
-.mainlogo {
-  opacity: 0;
-}
-
-.fade-in-slide {
-  animation: fade-in-slide-animation 1s ease forwards;
-}
-
-@keyframes fade-in-slide-animation {
-  0% {
-    opacity: 0;
-    transform: translateY(-100%);
+/* 반응형 스타일 */
+@media screen and (max-width: 800px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
   }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-.robot-container {
-  position: absolute;
-  bottom: 50px; /* 원하는 위치로 조정하세요 */
-  left: 55%;
-  transform: translateX(-50%);
+  .kakao {
+    display: none !important; /* !important를 추가하여 강제로 숨김 */
+  }
+
+  .logo {
+    width: 150px;
+    margin: auto; /* 가운데 정렬 */
+    margin-bottom: 20px; /* 모바일에서 여백 추가 */
+  }
 }
