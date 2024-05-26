@@ -38,6 +38,6 @@ class MobumRepo:
                 mobum = mobum.filter_by(업태명=restaurantType)
             if best_food:
                 mobum = mobum.filter_by(주된음식=best_food)
-            return mobum
+            return mobum.limit(5).all()
         except OperationalError as e:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")

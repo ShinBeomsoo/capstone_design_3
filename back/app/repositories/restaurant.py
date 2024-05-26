@@ -40,7 +40,7 @@ class RestaurantRepo:
                 restaurant = restaurant.filter(RestaurantModel.지번주소.like(f"%{gu}%"))
             if restaurantType:
                 restaurant = restaurant.filter_by(업태구분명=restaurantType)
-            return restaurant.all()
+            return restaurant.limit(5).all()
         except OperationalError as e:
             print("error", e)
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")

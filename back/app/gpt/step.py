@@ -68,8 +68,10 @@ def run_assistants(client, thread, run):
             )
 
             tool_outputs = []
+            print("tool_outputs", tool_outputs)
             for action in required_actions["tool_calls"]:
                 process_action(action, tool_outputs)
+            print("tool_outputs", tool_outputs)
 
             client.beta.threads.runs.submit_tool_outputs(
                 thread_id=thread,

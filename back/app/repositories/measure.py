@@ -12,7 +12,7 @@ class MeasureRepo:
 
     async def get_measure_list(name: str, db: Session) -> List[MeasureModel]:
         try:
-            measure = db.query(MeasureModel).filter(MeasureModel.업소명 == name).all()
-            return measure
+            measure = db.query(MeasureModel).filter(MeasureModel.업소명 == name)
+            return measure.limit(5).all()
         except OperationalError as e:
             raise HTTPException(detail=f"{e} 가입이 안되어 있는 유저입니다.")
