@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal
 from pydantic import BaseModel
 
 
@@ -8,8 +9,8 @@ class Restaurant(BaseModel):
     사업장명: str = "사업장명"
     지번주소: str = "지번주소"
     업태구분명: str = "업태구분명"
-    좌표정보_X: float | None = "좌표정보_X"
-    좌표정보_Y: float | None = "좌표정보_Y"
+    위도: Decimal | None = "좌표정보_X"
+    경도: Decimal | None = "좌표정보_Y"
 
 
 class RestaurantDetail(Restaurant):
